@@ -24,3 +24,9 @@ sp500['Symbol'] = sp500['Symbol'].str.replace('.','-')
 
 symbols_list = sp500['Symbol'].unique().tolist()
 symbols_list
+
+end_date = '2025-10-31'
+start_date = pd.to_datetime(end_date) - dt.timedelta(days=365*10) #last 10 years
+df = yf.download(symbols_list, start=start_date, end=end_date)
+
+df
