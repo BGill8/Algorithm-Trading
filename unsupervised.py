@@ -30,3 +30,5 @@ start_date = pd.to_datetime(end_date) - dt.timedelta(days=365*10) #last 10 years
 df = yf.download(symbols_list, start=start_date, end=end_date)
 
 df
+
+df['garman-klass_vol'] = ((np.log(df['high'])-np.log(df['low']))**2)/2 - ((2*np.log(2)-1) * (np.log(df['close'])-(np.log(df['open']))**2))

@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  stock-projections-backend
+
+  SAM Template for the FastAPI backend
+
+Globals:
+  Function:
+    Timeout: 30
+
+Resources:
+  StockProjectionsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        ApiEvents:
+          Type: HttpApi
+    Metadata:
+      DockerTag: python3.9-v1
+      DockerContext: ./
+      Dockerfile: Dockerfile
+
+Outputs:
+  StockProjectionsApi:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/"
